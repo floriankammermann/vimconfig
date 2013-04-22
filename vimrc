@@ -26,6 +26,9 @@ set smartcase
 "Informative status line
 set statusline=%F%m%r%h%w\ [TYPE=%Y\ %{&ff}]\ [%l/%L\ (%p%%)]
 
+"replace selected text with last yanked text
+vmap r "_dP
+
 "Set color scheme
 "set t_Co=256
 colorscheme desert
