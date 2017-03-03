@@ -51,3 +51,7 @@ export PS1='\[\e[0;31m\]\u@\h:\w${text}$\[\e[m\] '
 
 "Have 3 lines of offset (or buffer) when scrolling
 "set scrolloff=3
+
+"Turn off creation of backup files
+set nobackup
+set nowritebackup
