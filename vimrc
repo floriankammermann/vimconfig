@@ -34,10 +34,11 @@ vmap r "_dP
 colorscheme desert
 syntax enable
 
+"DOESN'T WORK IN CYGWIN
 "changes the color of the prompt if it is a ssh session
-if [ -n "$SSH_CLIENT" ]; then text=" ssh-session"
-fi
-export PS1='\[\e[0;31m\]\u@\h:\w${text}$\[\e[m\] '
+"if [ -n "$SSH_CLIENT" ]; then text=" ssh-session"
+"fi
+"export PS1='\[\e[0;31m\]\u@\h:\w${text}$\[\e[m\] '
 
 "Enable indent folding
 "set foldenable
