@@ -53,6 +53,6 @@ syntax enable
 "Have 3 lines of offset (or buffer) when scrolling
 "set scrolloff=3
 
-"Turn off creation of backup files
-set nobackup
-set nowritebackup
+"Use seperate directories for backup and swap files
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swp//
