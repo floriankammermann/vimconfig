@@ -17,6 +17,8 @@ Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/sy
 Plug 'godoctor/godoctor.vim'
 " Colorschemes
 Plug 'NLKNguyen/papercolor-theme'
+" Buffer Handler
+Plug 'jlanzarotta/bufexplorer'
 call plug#end()
 
 filetype plugin on
@@ -27,10 +29,23 @@ filetype plugin on
 let mapleader = ","
 set number
 
+" save buffer
 nnoremap <leader>w :write<cr>
 
 " leave insert mode with öö
 imap öö <Esc>
+
+" search for visual selected text
+vnoremap // y/<C-R>"<CR>
+
+" remap tab to 4 spaces
+set tabstop=4       " The width of a TAB is set to 4.
+                    " Still it is a \t. It is just that
+                    " Vim will interpret it to be having
+                    " a width of 4.
+set shiftwidth=4    " Indents will have a width of 4
+set softtabstop=4   " Sets the number of columns for a TAB
+set expandtab       " Expand TABs to spaces
 
 "----------------------------------------------
 " Session handling
@@ -83,6 +98,9 @@ let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const
 " close scratch window after list selection
 set completeopt-=preview
 
+" move in the autocompletion box with jk
+" inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+" inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
 "----------------------------------------------
 " NERDTree
 "----------------------------------------------
@@ -107,7 +125,11 @@ nnoremap <S-Left> <c-w>h
 nnoremap <S-Right> <c-w>l
 nnoremap <S-Up> <c-w>k
 nnoremap <S-Down> <c-w>j
-nnoremap <tab><tab> <c-w><c-w>
+" nnoremap <S-h> <c-w>h
+" nnoremap <S-l> <c-w>l
+" nnoremap <S-k> <c-w>k
+" nnoremap <S-j> <c-w>j
+" nnoremap <tab><tab> <c-w><c-w>
 
 " resize horzontal split window
 nnoremap <C-Up> <C-W>-<C-W>-
@@ -125,6 +147,7 @@ let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
@@ -139,3 +162,4 @@ nnoremap <leader>t :GoTest<cr>
 nnoremap <leader>d :GoDef<cr>
 nnoremap <leader>dp :GoDefPop<cr>
 nnoremap <leader>a :GoAlternate<cr>
+nnoremap <leader>f :GoDecls<cr>
