@@ -7,18 +7,20 @@ Plug 'junegunn/fzf.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-fugitive'
 " golang
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go',  { 'do': ':GoUpdateBinaries' }
 Plug 'jodosha/vim-godebug'
 Plug 'sebdah/vim-delve'
 Plug 'jodosha/vim-godebug' " Debugger integration via delve
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-go', {'do': 'make'}
-Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 Plug 'godoctor/godoctor.vim'
 " Colorschemes
 Plug 'NLKNguyen/papercolor-theme'
 " Buffer Handler
 Plug 'jlanzarotta/bufexplorer'
+" Jenkinsfile Syntax
+Plug 'martinda/Jenkinsfile-vim-syntax'
 call plug#end()
 
 filetype plugin on
