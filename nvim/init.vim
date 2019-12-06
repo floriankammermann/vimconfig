@@ -3,6 +3,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 " filefinder
 Plug 'junegunn/fzf.vim'
+Plug 'rking/ag.vim'
 " git
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-fugitive'
@@ -21,6 +22,8 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'jlanzarotta/bufexplorer'
 " Jenkinsfile Syntax
 Plug 'martinda/Jenkinsfile-vim-syntax'
+" vue plugin
+Plug 'posva/vim-vue'
 call plug#end()
 
 filetype plugin on
@@ -158,6 +161,7 @@ let g:go_auto_sameids = 1
 let g:go_auto_type_info = 1
 set updatetime=100
 let g:go_list_type = "locationlist"
+let g:go_referrers_mode = "gopls"
 nnoremap <leader>b :GoBuild<cr>
 nnoremap <leader>tc :GoTestCompile<cr>
 nnoremap <leader>t :GoTest<cr>
