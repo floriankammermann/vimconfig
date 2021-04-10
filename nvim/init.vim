@@ -239,6 +239,7 @@ set statusline+=\ %l:%c
 "----------------------------------------------
 " NERDTree
 "----------------------------------------------
+let NERDTreeShowHidden = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 " synchronize NERDTree with buffer
