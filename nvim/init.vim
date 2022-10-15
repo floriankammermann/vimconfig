@@ -1,29 +1,19 @@
 call plug#begin('~/.vim/plugged')
 " filesystem structure
 Plug 'scrooloose/nerdtree'
+" Buffer Handler
+Plug 'jlanzarotta/bufexplorer'
+" Colorschemes
+Plug 'NLKNguyen/papercolor-theme'
 " filefinder
 Plug 'junegunn/fzf.vim'
 Plug 'rking/ag.vim'
-" git
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tpope/vim-fugitive'
-Plug 'tommcdo/vim-fubitive'
-" golang
-Plug 'fatih/vim-go',  { 'do': ':GoUpdateBinaries' }
-Plug 'jodosha/vim-godebug'
-Plug 'sebdah/vim-delve'
-Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-Plug 'godoctor/godoctor.vim'
 " Autocompletion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Colorschemes
-Plug 'NLKNguyen/papercolor-theme'
-" Buffer Handler
-Plug 'jlanzarotta/bufexplorer'
-" Jenkinsfile Syntax
-Plug 'martinda/Jenkinsfile-vim-syntax'
-" vue plugin
-Plug 'posva/vim-vue'
+" golang
+Plug 'fatih/vim-go',  { 'do': ':GoUpdateBinaries' }
+" asciidoc
+Plug 'habamax/vim-asciidoctor'
 call plug#end()
 
 filetype plugin on
@@ -76,9 +66,72 @@ colorscheme PaperColor
 highlight Search guibg=DeepPink4 guifg=White ctermbg=53 ctermfg=White
 
 "----------------------------------------------
-" fuzzy finder
+" NERDTree
 "----------------------------------------------
-nnoremap <C-f> :Files<CR>
+let NERDTreeShowHidden = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+" synchronize NERDTree with buffer
+nnoremap <leader>j :NERDTreeFind<cr>
+nnoremap <leader>n :NERDTreeFocus<cr>
+
+"----------------------------------------------
+" Windows
+"----------------------------------------------
+" use Ctrl - Cursor to move between windows
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-l> <C-w>l
+
+" use tab to move through windows
+nnoremap <tab> <c-w>
+nnoremap <S-Left> <c-w>h
+nnoremap <S-Right> <c-w>l
+nnoremap <S-Up> <c-w>k
+nnoremap <S-Down> <c-w>j
+" nnoremap <S-h> <c-w>h
+" nnoremap <S-l> <c-w>l
+" nnoremap <S-k> <c-w>k
+" nnoremap <S-j> <c-w>j
+" nnoremap <tab><tab> <c-w><c-w>
+
+" resize horzontal split window
+nnoremap <C-Up> <C-W>-<C-W>-
+nnoremap <C-Down> <C-W>+<C-W>+
+" resize vertical split window
+nnoremap <C-Right> <C-W>><C-W>>
+nnoremap <C-Left> <C-W><<C-W><
+
+"----------------------------------------------
+" Golang
+"----------------------------------------------
+let g:go_gocode_autobuild = 1
+let g:go_fmt_command = "goimports"
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+let g:go_auto_type_info = 1
+set updatetime=100
+let g:go_list_type = "locationlist"
+let g:go_referrers_mode = "gopls"
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+let g:go_def_mapping_enabled = 0
+nnoremap <leader>b :GoBuild<cr>
+nnoremap <leader>tc :GoTestCompile<cr>
+nnoremap <leader>t :GoTest<cr>
+nnoremap <leader>d :GoDef<cr>
+nnoremap <leader>dp :GoDefPop<cr>
+nnoremap <leader>a :GoAlternate<cr>
+nnoremap <leader>f :GoDecls<cr>
 
 "----------------------------------------------
 " Autocompletion coc
@@ -209,97 +262,3 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-"----------------------------------------------
-" Statusline
-"----------------------------------------------
-let NERDTreeMinimalUI = 1
-function! GitBranch()
-  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
-
-function! StatuslineGit()
-  let l:branchname = GitBranch()
-  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-endfunction
-
-set statusline=
-set statusline+=%#PmenuSel#
-set statusline+=%{StatuslineGit()}
-set statusline+=%#StatusLineNC#
-set statusline+=\ %f
-set statusline+=%=
-set statusline+=%#CursorColumn#
-set statusline+=\ %y
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\[%{&fileformat}\]
-set statusline+=\ %p%%
-set statusline+=\ %l:%c
-
-"----------------------------------------------
-" NERDTree
-"----------------------------------------------
-let NERDTreeShowHidden = 1
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-" synchronize NERDTree with buffer
-nnoremap <leader>j :NERDTreeFind<cr>
-nnoremap <leader>n :NERDTreeFocus<cr>
-
-"----------------------------------------------
-" Windows
-"----------------------------------------------
-" use Ctrl - Cursor to move between windows
-" nnoremap <C-h> <C-w>h
-" nnoremap <C-j> <C-w>j
-" nnoremap <C-k> <C-w>k
-" nnoremap <C-l> <C-w>l
-
-" use tab to move through windows
-nnoremap <tab> <c-w>
-nnoremap <S-Left> <c-w>h
-nnoremap <S-Right> <c-w>l
-nnoremap <S-Up> <c-w>k
-nnoremap <S-Down> <c-w>j
-" nnoremap <S-h> <c-w>h
-" nnoremap <S-l> <c-w>l
-" nnoremap <S-k> <c-w>k
-" nnoremap <S-j> <c-w>j
-" nnoremap <tab><tab> <c-w><c-w>
-
-" resize horzontal split window
-nnoremap <C-Up> <C-W>-<C-W>-
-nnoremap <C-Down> <C-W>+<C-W>+
-" resize vertical split window
-nnoremap <C-Right> <C-W>><C-W>>
-nnoremap <C-Left> <C-W><<C-W><
-
-"----------------------------------------------
-" Golang
-"----------------------------------------------
-let g:go_gocode_autobuild = 1
-let g:go_fmt_command = "goimports"
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_auto_sameids = 1
-let g:go_auto_type_info = 1
-set updatetime=100
-let g:go_list_type = "locationlist"
-let g:go_referrers_mode = "gopls"
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
-let g:go_def_mapping_enabled = 0
-nnoremap <leader>b :GoBuild<cr>
-nnoremap <leader>tc :GoTestCompile<cr>
-nnoremap <leader>t :GoTest<cr>
-nnoremap <leader>d :GoDef<cr>
-nnoremap <leader>dp :GoDefPop<cr>
-nnoremap <leader>a :GoAlternate<cr>
-nnoremap <leader>f :GoDecls<cr>
